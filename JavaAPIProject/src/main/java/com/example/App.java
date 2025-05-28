@@ -133,7 +133,7 @@ public class App {
                 System.out.println("Great! Enter Your Answer!");
                 int userAnswer = scanner.nextInt();
                 if (userAnswer == answer) {
-                    System.out.println(" ✅Correct!✅ ");
+                    System.out.println("✅ Correct!✅ ");
                 } else {
                    System.out.println(" ❌ Wrong!❌ The correct answer is " + answer + "!");
                 }
@@ -149,7 +149,7 @@ public class App {
                 System.out.println("-----Please enter your answer now:-----");
                 int userAnswer = scanner.nextInt();
                 if (userAnswer == answer) {
-                    System.out.println(" ✅Correct!✅ ");
+                    System.out.println("✅ Correct!✅ ");
                 } else {
                     System.out.println(" ❌ Wrong!❌ The correct answer is " + answer + "!");
                 }
@@ -245,7 +245,7 @@ public class App {
                     System.out.println("Great! Enter Your Answer!");
                     int userAnswer = scanner.nextInt();
                     if (userAnswer == answer) {
-                        System.out.println(" ✅Correct!✅ ");
+                        System.out.println("✅ Correct!✅ ");
                         totalPoints += 6;
                     } else {
                         System.out.println(" ❌ Wrong!❌ The correct answer is " + answer + "!");
@@ -263,7 +263,7 @@ public class App {
                     System.out.println("-----Please enter your answer now:-----");
                     int userAnswer = scanner.nextInt();
                     if (userAnswer == answer) {
-                        System.out.println(" ✅Correct!✅ ");
+                        System.out.println("✅ Correct!✅ ");
                         totalPoints += 3;
                     } else {
                        System.out.println(" ❌ Wrong!❌ The correct answer is " + answer + "!");
