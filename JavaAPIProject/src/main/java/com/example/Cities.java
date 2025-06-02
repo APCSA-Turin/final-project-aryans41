@@ -82,6 +82,9 @@ public class Cities {
         cities.add(saltLakeCity);
         City newOrleans = new City("New Orleans", "Gulf Coast", "Louisiana", "The Birthplace of Jazz");
         cities.add(newOrleans);
+
+        City lasVegas = new City("Las Vegas", "South West", "Nevada", "Entertainment Capital of the World");
+        cities.add(lasVegas);
     }
 
     

@@ -66,6 +66,8 @@ public class App {
                         System.out.print("New York" + "\n");
                     } else if (city.equals("indianapolis")) {
                         System.out.print("Indiana" + "\n");
+                    } else if (city.equals("oklahoma city")) {
+                        System.out.println("Oklahoma" + "\n");
                     } else {
                         System.out.print(foundCity.getState() + "\n");
                     }
@@ -286,7 +288,7 @@ public class App {
                     System.out.println("-----Please enter your answer now:-----");
                     int userAnswer = scanner.nextInt();
                     if (userAnswer == answer) {
-                        System.out.println(ANSI_PURPLE + "✅ Correct!✅ " + ANSI_WHITE_BACKGROUND);
+                        System.out.println(ANSI_PURPLE + "✅ Correct!✅ " + ANSI_WHITE);
                         totalPoints += 3;
                     } else {
                        System.out.println(ANSI_YELLOW + " ❌ Wrong!❌ The correct answer is " + answer + "!" + ANSI_WHITE);
@@ -298,7 +300,7 @@ public class App {
             System.out.println("Total Questions: " + totalQuestions + ANSI_WHITE);
         }
         System.out.println(ANSI_BLUE + "YAY! You have completed this challenge! You reached " + totalPoints + " with " + totalHints + " hints in " +  totalQuestions + " questions!");
-        double percent = (totalPoints / (totalQuestions * 10.0)) * 100;
+        int percent = (int) ((totalPoints / (totalQuestions * 10.0)) * 100 + 0.5);
         System.out.println("You obtained " + percent + "% of the points!!" );
     }
 }

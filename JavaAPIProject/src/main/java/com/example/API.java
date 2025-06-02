@@ -37,9 +37,6 @@ public class API {
         JSONArray arr = new JSONArray(response);
         JSONObject res = arr.getJSONObject(0);
         double latitude = res.getDouble("lat");
-        if (latitude < 0) {
-            latitude *= -1;
-        }
         return latitude;
     }
 
@@ -48,9 +45,6 @@ public class API {
         JSONArray arr = new JSONArray(response);
         JSONObject res = arr.getJSONObject(0);
         double longitude = res.getDouble("lon");
-        if (longitude < 0) {
-            longitude *= -1;
-        }
         return longitude;
     }
 
@@ -86,7 +80,13 @@ public class API {
         String response = getCityData(city);
         JSONObject arr = new JSONObject(response);
         double longitude = getLongitude(city);
+        if (longitude < 0) {
+            longitude *= -1;
+        }
         double latitude = getLatitude(city);
+        if (latitude < 0) {
+            latitude *= -1;
+        }
         information += "----" + "The City is located:" + "----\n";
         information += "Latitude: " + latitude + "° N" + "\n";
         information += "Longitude: " + longitude + "° W" + "\n";
@@ -95,7 +95,7 @@ public class API {
 
         information += "----Weather Details:" + "----\n";
         double temperature = arr.getJSONObject("current").getDouble("temp");
-        double inFar = Math.round((temperature - 273.15) * 9.0/5 + 32) * 100.0/100.0; //calculates the temperature in Fahrenheit rounded
+        double inFar = Math.round((temperature - 273.15) * 9.0/5 + 32) ; //calculates the temperature in Fahrenheit rounded
         information += "Temperature: " + inFar + "° F";
         if (inFar <= 50) {
             information += " (cold weather)" + "\n";
