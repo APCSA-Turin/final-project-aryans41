@@ -42,7 +42,7 @@ public class Cities {
         City charlotte = new City("Charlotte", "Southeast", "North Carolina", "The Queen City");
         cities.add(charlotte);
 
-        City denver = new City("Denver", "Western Rockies", "The Mile High City", "Colorado");
+        City denver = new City("Denver", "Western Rockies", "Colorado", "The Mile High City");
         cities.add(denver);
         City houston = new City("Houston", "Southwest", "Texas", "Space City");
         cities.add(houston);

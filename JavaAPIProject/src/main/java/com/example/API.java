@@ -37,6 +37,9 @@ public class API {
         JSONArray arr = new JSONArray(response);
         JSONObject res = arr.getJSONObject(0);
         double latitude = res.getDouble("lat");
+        if (latitude < 0) {
+            latitude *= -1;
+        }
         return latitude;
     }
 
@@ -45,6 +48,9 @@ public class API {
         JSONArray arr = new JSONArray(response);
         JSONObject res = arr.getJSONObject(0);
         double longitude = res.getDouble("lon");
+        if (longitude < 0) {
+            longitude *= -1;
+        }
         return longitude;
     }
 
@@ -79,11 +85,13 @@ public class API {
         String information = "";
         String response = getCityData(city);
         JSONObject arr = new JSONObject(response);
-        double longitude = getLongitude(city) * -1;
+        double longitude = getLongitude(city);
         double latitude = getLatitude(city);
         information += "----" + "The City is located:" + "----\n";
         information += "Latitude: " + latitude + "° N" + "\n";
         information += "Longitude: " + longitude + "° W" + "\n";
+        information += "*** USA West Coast: Longitude of 125° W; USA East Coast: Longitude of 67° W ***" + "\n";
+        information += "*** USA North Latitude: 49° N; USA South Longitude: 25° N ***" + "\n";
 
         information += "----Weather Details:" + "----\n";
         double temperature = arr.getJSONObject("current").getDouble("temp");
