@@ -1,9 +1,12 @@
 package com.example;
 import java.util.ArrayList;
 
+//This class acts as a database of US cities with their associated metadata.
 public class Cities {
+    //this instance variable maintains the collection of city objects and is initialized with 50+ U.S. cities in the constructor. 
     private ArrayList<City> cities = new ArrayList<City>(); 
     
+    //This constructor populates the cities ArrayList with predefined City objects
     public Cities() {
         City albany = new City("Albany", "Mid-Atlantic", "New York", "Cradle of the Union");
         cities.add(albany); 
@@ -87,7 +90,8 @@ public class Cities {
         cities.add(lasVegas);
     }
 
-    
+    /* This getter method provides a read-only access to the city list. It is used by the App class to select random cities 
+    for games, look up city details, and generate multiple-choice options. */
     public ArrayList<City> getCities() {
         return cities;
     }

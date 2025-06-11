@@ -12,9 +12,13 @@ import java.io.InputStreamReader;
 import java.io.IOException; 
 import java.util.Scanner;
 
+//This class handles all OpenWeatherMap API interactions to fetch weather and geographical data. 
 public class API {
+    //this is my unique API key contained as a static variable, so I don't need to copy/paste it everytime in my API call
     static final String apiKey = "d34f54f2a2caad463e41f92915d5b7d4"; 
 
+    /* This helps convert a city name (e.g., "Chicago") into latitude/longitude coordinates that are required for weather API. 
+    Process: It sends a GET request to OpenWeather's Geocoding API and returns a raw JSON response with coordinates. */
     public static String getCoordinates(String city) throws Exception {
         city = city.replaceAll(" ", "+"); //helps concatenate the city for the url(it can't have spaces)
         String urlStr = "https://api.openweathermap.org/geo/1.0/direct?q=" + city + ",US&limit=1&appid=" + apiKey;
@@ -32,6 +36,8 @@ public class API {
         return content.toString();
     }
  
+    /* these methods extract and return the latitude/longitude from API's JSON response (from getCoordinates() method) and 
+    convert negative values to absolute (for display purposes) */
     public static double getLatitude(String city) throws Exception {
         String response = getCoordinates(city);
         JSONArray arr = new JSONArray(response);
@@ -48,7 +54,9 @@ public class API {
         return longitude;
     }
 
-
+    //this method retrieves detailed JSON weather data (temperature, humidity, wind speed, etc.) using coordinates.
+    //Process: It sends a GET request to OpenWeather One Call 3.0 API
+    //It needs exact coordinates to provide hyper-local weather data, so the city parameter is converted into specific location using the prior methods above
     public static String getCityData(String city) throws Exception {
         double lat = getLatitude(city);
         double lon = getLongitude(city);
@@ -75,6 +83,7 @@ public class API {
         return content.toString(); //return the content as a string
     }
 
+    //This method formats (parses) JSON weather data (from getCityData() method) into a human-readable format with interpretations (eg., "hot weather" for high temps)
     public static String getCityInformation(String city) throws Exception {
         String information = "";
         String response = getCityData(city);
@@ -94,7 +103,7 @@ public class API {
         information += "*** USA North Latitude: 49° N; USA South Longitude: 25° N ***" + "\n";
 
         information += "----Weather Details:" + "----\n";
-        double temperature = arr.getJSONObject("current").getDouble("temp");
+        double temperature = arr.getJSONObject("current").getDouble("temp"); //parses the temperature
         double inFar = Math.round((temperature - 273.15) * 9.0/5 + 32) ; //calculates the temperature in Fahrenheit rounded
         information += "Temperature: " + inFar + "° F";
         if (inFar <= 50) {
@@ -110,7 +119,7 @@ public class API {
             information += " (hot weather)" + "\n";
         }
 
-        double pressure = arr.getJSONObject("current").getDouble("pressure");
+        double pressure = arr.getJSONObject("current").getDouble("pressure"); //parses the pressure
         information += "Pressure: " + pressure + " hPa";
         if (pressure < 1000) {
             information += " (low pressure - stormy or unstable weather)" + "\n";
@@ -122,7 +131,7 @@ public class API {
             information += " (high pressure - very stable, often clear skies)" + "\n";
         }
 
-        double humidity = arr.getJSONObject("current").getDouble("humidity");
+        double humidity = arr.getJSONObject("current").getDouble("humidity"); //parses the humidity
         information += "Humidity: " + humidity + "%";
         if (humidity <= 40) {
             information += " (dry)" + "\n";
@@ -134,7 +143,7 @@ public class API {
             information += " (humid)" + "\n";
         }
 
-        double uvi = arr.getJSONObject("current").getDouble("uvi");
+        double uvi = arr.getJSONObject("current").getDouble("uvi"); //parses the uvi
         information += "Ultaviolet Index: " + uvi;
         if (uvi <= 3) {
             information += " (low risk)" + "\n";
@@ -147,7 +156,7 @@ public class API {
         }
 
 
-        double clouds = arr.getJSONObject("current").getDouble("clouds");
+        double clouds = arr.getJSONObject("current").getDouble("clouds"); //parses the clouds data
         information += "Cloud Cover: " + clouds + "%";
         if (clouds >= 0 && clouds <= 31) {
             information += " (clear)" + "\n";
@@ -159,7 +168,7 @@ public class API {
             information += " (overcast)" + "\n";
         }
 
-        double visibility = arr.getJSONObject("current").getDouble("visibility");
+        double visibility = arr.getJSONObject("current").getDouble("visibility"); //parses the visibility
         information += "Visibility: " + visibility/1000 + " km";
         if (visibility >= 0 && visibility <= 6) {
             information += " (poor)" + "\n";
@@ -172,7 +181,7 @@ public class API {
         }
 
 
-        double windSpeed = arr.getJSONObject("current").getDouble("wind_speed");
+        double windSpeed = arr.getJSONObject("current").getDouble("wind_speed"); //parses the wind speed
         information += "Windspeed: " + windSpeed + " m/s";
         if (windSpeed > 0 && windSpeed <= 10) {
             information += " (light breeze)" + "\n";
@@ -184,7 +193,7 @@ public class API {
             information += " (strong/potentially hazardous)" + "\n";
         }
 
-        String summary = arr.getJSONArray("daily").getJSONObject(0).getString("summary");
+        String summary = arr.getJSONArray("daily").getJSONObject(0).getString("summary"); //parses the summary
         information += "Summary: " + summary;
         return information;
     }
